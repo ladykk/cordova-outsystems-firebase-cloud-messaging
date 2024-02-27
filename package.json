@@ -1,6 +1,6 @@
 {
   "name": "com.outsystems.firebase.cloudmessaging",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Outsystems plugin for Firebase Cloud Messaging",
   "keywords": [
     "ecosystem:cordova",

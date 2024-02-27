@@ -37,6 +37,8 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
         private const val ERROR_FORMAT_PREFIX = "OS-PLUG-FCMS-"
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 123123
         private const val NOTIFICATION_PERMISSION_SEND_LOCAL_REQUEST_CODE = 987987
+        const val FCM_EXPLICIT_NOTIFICATION = "com.outsystems.fcm.notification"
+        const val GOOGLE_MESSAGE_ID = "google.message_id"
     }
 
     override fun initialize(cordova: CordovaInterface, webView: CordovaWebView) {
@@ -60,8 +62,18 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
     private fun handleIntent(intent: Intent) {
         val extras = intent.extras
         val extrasSize = extras?.size() ?: 0
+
+        // Check if intent comes from an FCM notification. If not, we don't want to handle it
+        // This is necessary so that we don't mistakenly deal with deep links thinking they're FCM notification clicks
+        val googleMessageId = extras?.getString(GOOGLE_MESSAGE_ID) // for notifications automatically delivered by the FCM SDK
+        val fcmInternal = extras?.getString(FCM_EXPLICIT_NOTIFICATION) // for notifications that we explicitly deliver in the FCM plugin
+
+        if (googleMessageId.isNullOrEmpty() && fcmInternal.isNullOrEmpty()) {
+            return
+        }
+
         if(extrasSize > 0) {
-            val scheme = extras?.getString(FirebaseMessagingOnActionClickActivity.ACTION_DEEP_LINK_SCHEME)
+            val scheme = extras.getString(FirebaseMessagingOnActionClickActivity.ACTION_DEEP_LINK_SCHEME)
             if (scheme.isNullOrEmpty()) {
                 FirebaseMessagingOnClickActivity.notifyClickNotification(intent)
             }
