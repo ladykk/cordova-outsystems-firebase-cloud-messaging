@@ -20,13 +20,15 @@ module.exports = function(context) {
   let platformConfig = utils.getPlatformConfigs(platform);
 
   if (!platformConfig) {
-    utils.handleError("Invalid platform", defer);
+    throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Error occurred on ${context.hook} because there was a problem
+    detecting the platform configuration.`)
   }
 
   let sourcePath = utils.getPlatformSoundPath(context, platformConfig)
   let soundFolderPath = path.join(sourcePath, constants.soundFolder);
 
   if(utils.checkIfFileOrFolderExists(soundFolderPath)){
+    console.log(`FCM_LOG: Deleting sounds folder @ ${soundFolderPath} `)
     utils.removeFolder(soundFolderPath);
   } 
 

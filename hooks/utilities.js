@@ -29,12 +29,6 @@ var constants = {
   }
 };
 
-function handleError(errorMessage, defer) {
-  console.log(errorMessage);
-  defer.reject();
-}
-
-
 function checkIfFileOrFolderExists(path) {
   return fs.existsSync(path);
 }
@@ -70,14 +64,14 @@ function getPlatformSoundPath(context, platformConfig){
   let platformPath;
 
   if(platformConfig === constants.android){
-      platformPath = path.join(projectRoot, `platforms/android/www`);
+    platformPath = path.join(projectRoot, `platforms/android/www`);
   } else {
-      let appName = getAppName(context)
-      platformPath = path.join(projectRoot, `platforms/ios/${appName}/Resources/www`);   
+    let appName = getAppName(context)
+    platformPath = path.join(projectRoot, `platforms/ios/${appName}/Resources/www`);   
   }
       
   if(!fs.existsSync(platformPath)){
-      platformPath = path.join(projectRoot, platformConfig.getWWWFolder());
+    platformPath = path.join(projectRoot, platformConfig.getWWWFolder());
   }
   
   return platformPath
@@ -89,15 +83,15 @@ function isCordovaAbove(context, version) {
   return parseInt(sp[0]) >= version;
 }
 
-
 function copyFromSourceToDestPath(defer, sourcePath, destPath) {
   fs.createReadStream(sourcePath).pipe(fs.createWriteStream(destPath))
-  .on("close", function (err) {
+  .on("close", function () {
+    console.log(`Finished copying ${sourcePath}.`);
     defer.resolve();
   })
   .on("error", function (err) {
     console.log(err);
-    defer.reject();
+    throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Something went wrong when trying to copy sounds files. Please check the logs for more information.`);
   });
 }
 
@@ -113,7 +107,6 @@ function getAppName(context) {
 
 module.exports = {
   isCordovaAbove,
-  handleError,
   getPlatformConfigs,
   copyFromSourceToDestPath,
   getFilesFromPath,

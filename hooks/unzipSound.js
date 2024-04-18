@@ -3,6 +3,7 @@
 let path = require("path");
 let utils = require("./utilities");
 let AdmZip = require("adm-zip");
+var q;
 
 let constants = {
   soundZipFile: "sounds.zip"
@@ -12,42 +13,49 @@ function copyWavFiles(platformConfig, source, dest, defer) {
   let files = utils.getFilesFromPath(source);
 
   let filteredFiles = files.filter(function(file){
-    return file.endsWith(platformConfig.soundFileExtension) == true;
+    return file.endsWith(platformConfig.soundFileExtension);
   });
-  
-  copyFiles(filteredFiles, source, dest, defer)
+
+  console.log(`FCM_LOG: Found ${filteredFiles.length} sound files!`);
+  return copyFiles(filteredFiles, source, dest, defer)
 }
 
 function copyFiles(files, source, dest, defer){
   if(!files){
-    utils.handleError("Something went wrong when trying to unzip sounds.zip, no files were found", defer);
-    return
+    throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Something went wrong when trying to unzip sounds.zip - no files were found`);
   }
   
   if(!utils.checkIfFileOrFolderExists(dest)) {
     utils.createOrCheckIfFolderExists(dest);
   }
-
+  let promiseArray = []
   for(const element of files) {
     let filePath = path.join(source, element);
     let destFilePath = path.join(dest, element);
-    utils.copyFromSourceToDestPath(defer, filePath, destFilePath);
+    console.log(`FCM_LOG: Copying [${filePath}] to [${destFilePath}]`);
+
+    let copyDefer = q.defer();
+    promiseArray.push(copyDefer);
+    utils.copyFromSourceToDestPath(copyDefer, filePath, destFilePath);
   }
+
+  return promiseArray;
 }
 
 module.exports = function(context) {
   let cordovaAbove8 = utils.isCordovaAbove(context, 8);
-  let defer;
-  if (cordovaAbove8) {
-    defer = require("q").defer();
-  } else {
-    defer = context.requireCordovaModule("q").defer();
-  }
   
+  if (cordovaAbove8) {
+    q = require('q');
+  } else {
+    q = context.requireCordovaModule("q");
+  }
+  let defer = q.defer();
+
   let platform = context.opts.platforms[0];
   let platformConfig = utils.getPlatformConfigs(platform);
   if (!platformConfig) {
-    utils.handleError("Invalid platform", defer);
+    throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Error occurred on ${context.hook} because there was a problem detecting the platform configuration.`)
   }
 
   let sourcePath = utils.getPlatformSoundPath(context, platformConfig)
@@ -55,28 +63,34 @@ module.exports = function(context) {
   soundFolderPath = path.join(context.opts.projectRoot, soundFolderPath);
 
   let soundZipFile = path.join(sourcePath, constants.soundZipFile);
-
+  let promises = [];
   if(utils.checkIfFileOrFolderExists(soundZipFile)){
     let zip = new AdmZip(soundZipFile);
     zip.extractAllTo(sourcePath, true);
     
     let entriesNr = zip.getEntries().length;
-    
+    console.log(`FCM_LOG: Sound zip file has ${entriesNr} entries`);
     if(entriesNr == 0) {
-      utils.handleError("Sound zip file is empty, either delete it or add one or more files", defer);
-      return
+      throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Sound zip file is empty, either delete it or add one or more files.`)
     }
   
     let zipFolder = sourcePath + "/sounds"
-
+    
     if(!utils.checkIfFileOrFolderExists(zipFolder)){
-      /**to deal with the following case:
+      console.log(`FCM_LOG: No new folder unzipping.`)
+      /**
+       * to deal with the following case:
        * iOS + one file in zip + O11
       **/
-      if(sourcePath != soundFolderPath)
-        copyWavFiles(platformConfig, sourcePath, soundFolderPath, defer)
+      if(sourcePath != soundFolderPath){
+        console.log(`FCM_LOG: ${sourcePath} != ${soundFolderPath} so we need to copy files.`)
+        promises = copyWavFiles(platformConfig, sourcePath, soundFolderPath, defer)
+      } else {
+        console.log(`FCM_LOG: ${sourcePath} == ${soundFolderPath} so we don't need to copy files.`)
+      }
     } else { 
-      copyWavFiles(platformConfig, zipFolder, soundFolderPath, defer)  
+      promises = copyWavFiles(platformConfig, zipFolder, soundFolderPath, defer)  
     }
   }
+  return promises.length > 0 ? q.all(promises) : defer.resolve();
 }
