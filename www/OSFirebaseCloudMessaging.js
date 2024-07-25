@@ -44,6 +44,14 @@ exports.getPendingNotifications = function (clearFromDatabase, success, error) {
     exec(success, error, 'OSFirebaseCloudMessaging', 'getPendingNotifications', [clearFromDatabase]);
 };
 
+exports.setDeliveryMetricsExportToBigQuery = function(enable, success, error) {
+    exec(success, error, 'OSFirebaseCloudMessaging', 'setDeliveryMetricsExportToBigQuery', [{enable}]);
+}
+
+exports.deliveryMetricsExportToBigQueryEnabled = function(success, error) {
+    exec(success, error, 'OSFirebaseCloudMessaging', 'deliveryMetricsExportToBigQueryEnabled')
+}
+
 // Event listener
 exports._listener = {};
 

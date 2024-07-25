@@ -1,23 +1,28 @@
-package com.outsystems.firebase.cloudmessaging;
+package com.outsystems.firebase.cloudmessaging
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
-import androidx.core.content.PermissionChecker.PermissionResult
-import com.outsystems.osnotificationpermissions.OSNotificationPermissions
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.outsystems.plugins.firebasemessaging.controller.*
 import com.outsystems.plugins.firebasemessaging.model.FirebaseMessagingError
 import com.outsystems.plugins.firebasemessaging.model.database.DatabaseManager
 import com.outsystems.plugins.firebasemessaging.model.database.DatabaseManagerInterface
 import com.outsystems.plugins.oscordova.CordovaImplementation
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaInterface
 import org.apache.cordova.CordovaWebView
+import org.apache.cordova.PluginResult
+import org.apache.cordova.PluginResult.Status
 import org.json.JSONArray
-
+import org.json.JSONObject
 
 class OSFirebaseCloudMessaging : CordovaImplementation() {
 
@@ -29,14 +34,16 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
 
     private var deviceReady: Boolean = false
     private val eventQueue: MutableList<String> = mutableListOf()
-    private var notificationPermission = OSNotificationPermissions()
+
+    private val gson: Gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+
+    private var flow: MutableSharedFlow<OSFCMPermissionEvents>? = null
 
     companion object {
         private const val CHANNEL_NAME_KEY = "notification_channel_name"
         private const val CHANNEL_DESCRIPTION_KEY = "notification_channel_description"
         private const val ERROR_FORMAT_PREFIX = "OS-PLUG-FCMS-"
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 123123
-        private const val NOTIFICATION_PERMISSION_SEND_LOCAL_REQUEST_CODE = 987987
         const val FCM_EXPLICIT_NOTIFICATION = "com.outsystems.fcm.notification"
         const val GOOGLE_MESSAGE_ID = "google.message_id"
     }
@@ -57,6 +64,10 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+    }
+
+    override fun onResume(multitasking: Boolean) {
+        // Not used in this project.
     }
 
     private fun handleIntent(intent: Intent) {
@@ -114,75 +125,132 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
             triggerEvent(event)
         }
         eventQueue.clear()
-
-        if(Build.VERSION.SDK_INT >= 33 &&
-            !notificationPermission.hasNotificationPermission(this)) {
-
-            notificationPermission.requestNotificationPermission(
-                this,
-                NOTIFICATION_PERMISSION_SEND_LOCAL_REQUEST_CODE)
-        }
-
     }
 
-    override fun execute(action: String, args: JSONArray, callbackContext: CallbackContext): Boolean {
-        this.callbackContext = callbackContext
-        val result = runBlocking {
+    override fun execute(
+        action: String,
+        args: JSONArray,
+        callbackContext: CallbackContext
+    ): Boolean {
+        CoroutineScope(IO).launch {
             when (action) {
                 "ready" -> {
                     ready()
                 }
+
                 "getToken" -> {
-                    controller.getToken()
+                    getToken(callbackContext)
                 }
+
                 "subscribe" -> {
-                    args.getString(0)?.let { topic ->
-                        controller.subscribe(topic)
+                    args.getString(0)?.let {
+                        topicOperation(
+                            callbackContext,
+                            operation = {
+                                controller.subscribe(it)
+                            },
+                            FirebaseMessagingError.SUBSCRIPTION_ERROR
+                        )
                     }
                 }
+
                 "unsubscribe" -> {
-                    args.getString(0)?.let { topic ->
-                        controller.unsubscribe(topic)
+                    args.getString(0)?.let {
+                        topicOperation(
+                            callbackContext,
+                            operation = {
+                                controller.unsubscribe(it)
+                            },
+                            FirebaseMessagingError.UNSUBSCRIPTION_ERROR
+                        )
                     }
                 }
+
                 "registerDevice" -> {
-                    registerWithPermission()
+                    registerDevice(callbackContext)
                 }
+
                 "unregisterDevice" -> {
-                    controller.unregisterDevice()
+                    unregisterDevice(callbackContext)
                 }
+
                 "clearNotifications" -> {
-                    clearNotifications()
+                    clearNotifications(callbackContext)
                 }
+
                 "sendLocalNotification" -> {
-                    sendLocalNotification(args)
+                    sendLocalNotification(args, callbackContext)
                 }
-                "setBadge" -> {
-                    setBadgeNumber()
-                }
-                "getBadge" -> {
-                    getBadgeNumber()
-                }
+
                 "getPendingNotifications" -> {
-                    args.getBoolean(0).let { clearFromDatabase ->
-                        controller.getPendingNotifications(clearFromDatabase)
+                    val clearFromDatabase = args.getBoolean(0)
+                    getPendingNotifications(clearFromDatabase, callbackContext)
+                }
+
+                "setDeliveryMetricsExportToBigQuery" -> {
+                    args.getJSONObject(0).getBoolean("enable").let {
+                        setDeliveryMetricsExportToBigQuery(it, callbackContext)
                     }
                 }
-                else -> false
+
+                "deliveryMetricsExportToBigQueryEnabled" -> {
+                    deliveryMetricsExportToBigQueryEnabled(callbackContext)
+                }
+
+                // non available methods
+                "setBadge" -> {
+                    sendError(callbackContext, FirebaseMessagingError.SET_BADGE_NOT_AVAILABLE_ERROR)
+                }
+
+                "getBadge" -> {
+                    sendError(callbackContext, FirebaseMessagingError.GET_BADGE_NOT_AVAILABLE_ERROR)
+                }
+
+                "getAPNsToken" -> {
+                    sendError(callbackContext, FirebaseMessagingError.GET_APNS_TOKEN_NOT_AVAILABLE_ERROR)
+                }
             }
-            true
         }
-        return result
+        return true
+    }
+
+    private suspend fun getToken(callbackContext: CallbackContext) {
+        controller.getToken()?.let {
+            sendSuccess(callbackContext, it)
+        } ?: sendError(callbackContext, FirebaseMessagingError.OBTAINING_TOKEN_ERROR)
+    }
+
+    private suspend fun topicOperation(callbackContext: CallbackContext, operation: suspend () -> Boolean, error: FirebaseMessagingError) {
+        if (operation()) {
+            sendSuccess(callbackContext)
+        } else {
+            sendError(callbackContext, error)
+        }
+    }
+
+    private fun getPendingNotifications(clearFromDatabase: Boolean, callbackContext: CallbackContext) {
+        val errorCallback: () -> Unit = {
+            sendError(callbackContext, FirebaseMessagingError.GET_PENDING_NOTIFICATIONS_ERROR)
+        }
+
+        val pendingNotificationNullableList = controller.getPendingNotifications(clearFromDatabase)
+        pendingNotificationNullableList?.let { pendingNotificationList ->
+            gson.toJson(pendingNotificationList)?.let { jsonString ->
+                sendSuccess(callbackContext, jsonString)
+            } ?: errorCallback()
+        } ?: errorCallback()
     }
 
     override fun onRequestPermissionResult(requestCode: Int,
                                            permissions: Array<String>,
                                            grantResults: IntArray) {
-        when(requestCode) {
-            NOTIFICATION_PERMISSION_REQUEST_CODE -> {
-                CoroutineScope(IO).launch {
-                    controller.registerDevice()
-                }
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            CoroutineScope(IO).launch {
+                flow?.emit(
+                    if (grantResults.indexOfFirst { it != PackageManager.PERMISSION_GRANTED } == -1)
+                        OSFCMPermissionEvents.Granted
+                    else OSFCMPermissionEvents.NotGranted
+                )
             }
         }
     }
@@ -192,36 +260,72 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
         return false
     }
 
-    private fun getBadgeNumber() {
-        controller.getBadgeNumber()
+    private suspend fun registerDevice(callbackContext: CallbackContext) {
+        flow = MutableSharedFlow(replay = 1)
+
+        // for build versions from Tiramisu, if it doesn't have permission, request it
+        // for older build versions, the permission is given by default
+        val hasPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                checkPermission(Manifest.permission.POST_NOTIFICATIONS)
+        if (hasPermission) {
+            flow?.emit(OSFCMPermissionEvents.Granted)
+        } else {
+            requestPermission(NOTIFICATION_PERMISSION_REQUEST_CODE, Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        flow?.collect {
+            if (it == OSFCMPermissionEvents.Granted) {
+                if (controller.registerDevice()) {
+                    sendSuccess(callbackContext)
+                } else {
+                    sendError(callbackContext, FirebaseMessagingError.REGISTRATION_ERROR)
+                }
+            } else {
+                sendError(callbackContext,  FirebaseMessagingError.NOTIFICATIONS_PERMISSIONS_DENIED_ERROR)
+            }
+        }
     }
 
-    private suspend fun registerWithPermission() {
-        val hasPermission = notificationPermission.hasNotificationPermission(this)
-        if(Build.VERSION.SDK_INT < 33 || hasPermission) {
-            controller.registerDevice()
-        }
-        else {
-            notificationPermission
-                .requestNotificationPermission(this, NOTIFICATION_PERMISSION_REQUEST_CODE)
+    private suspend fun unregisterDevice(callbackContext: CallbackContext) {
+        if (controller.unregisterDevice()) {
+            sendSuccess(callbackContext)
+        } else {
+            sendError(callbackContext, FirebaseMessagingError.UNREGISTRATION_ERROR)
         }
     }
 
-    private fun sendLocalNotification(args : JSONArray) {
+    private fun sendLocalNotification(args: JSONArray, callbackContext: CallbackContext) {
         val badge = args.get(0).toString().toInt()
         val title = args.get(1).toString()
         val text = args.get(2).toString()
         val channelName = args.get(3).toString()
         val channelDescription = args.get(4).toString()
-        controller.sendLocalNotification(badge, title, text, null, channelName, channelDescription)
+
+        val result = controller.sendLocalNotification(badge, title, text, null, channelName, channelDescription)
+        if (result.first) {
+            sendSuccess(callbackContext)
+        } else {
+            result.second?.let {
+                sendError(callbackContext, it)
+            }
+        }
     }
 
-    private fun clearNotifications() {
-        controller.clearNotifications()
+    private fun clearNotifications(callbackContext: CallbackContext) {
+        if (controller.clearNotifications()) {
+            sendSuccess(callbackContext)
+        } else {
+            sendError(callbackContext, FirebaseMessagingError.CLEARING_NOTIFICATIONS_ERROR)
+        }
     }
 
-    private fun setBadgeNumber() {
-        controller.setBadgeNumber()
+    private fun setDeliveryMetricsExportToBigQuery(enable: Boolean, callbackContext: CallbackContext) {
+        controller.setDeliveryMetricsExportToBigQuery(enable)
+        sendSuccess(callbackContext)
+    }
+
+    private fun deliveryMetricsExportToBigQueryEnabled(callbackContext: CallbackContext) {
+        sendSuccess(callbackContext, controller.deliveryMetricsExportToBigQueryEnabled().toString())
     }
 
     private fun setupChannelNameAndDescription(){
@@ -248,4 +352,19 @@ class OSFirebaseCloudMessaging : CordovaImplementation() {
         return ERROR_FORMAT_PREFIX + code.toString().padStart(4, '0')
     }
 
+    private fun sendSuccess(callbackContext: CallbackContext, stringValue: String? = null) {
+        val pluginResult = stringValue?.let { PluginResult(Status.OK, it) } ?: PluginResult(Status.OK)
+        callbackContext.sendPluginResult(pluginResult)
+    }
+
+    private fun sendError(callbackContext: CallbackContext, error: FirebaseMessagingError) {
+        val pluginResult = PluginResult(
+            Status.ERROR,
+            JSONObject().apply {
+                put("code", formatErrorCode(error.code))
+                put("message", error.description)
+            }
+        )
+        callbackContext.sendPluginResult(pluginResult)
+    }
 }

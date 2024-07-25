@@ -13,7 +13,7 @@ var constants = {
       return "platforms/android/app/src/main/res/raw";
     },
     getWWWFolder: function() {
-      return "www";
+      return "platforms/android/app/src/main/assets/www";
     }
   },
   ios: {
@@ -31,6 +31,14 @@ var constants = {
 
 function checkIfFileOrFolderExists(path) {
   return fs.existsSync(path);
+}
+
+
+function getFileName(dir, searchString, withExtension){
+  const files = fs.readdirSync(dir);
+  const matchingFiles = files.filter(file => file.includes(searchString) && file.endsWith(withExtension));
+  // return true if there are matching files, false otherwise
+  return matchingFiles.length > 0 ?matchingFiles[0] : "";
 }
 
 function removeFile(path){
@@ -61,20 +69,7 @@ function getPlatformConfigs(platform) {
 
 function getPlatformSoundPath(context, platformConfig){
   let projectRoot = context.opts.projectRoot;
-  let platformPath;
-
-  if(platformConfig === constants.android){
-    platformPath = path.join(projectRoot, `platforms/android/www`);
-  } else {
-    let appName = getAppName(context)
-    platformPath = path.join(projectRoot, `platforms/ios/${appName}/Resources/www`);   
-  }
-      
-  if(!fs.existsSync(platformPath)){
-    platformPath = path.join(projectRoot, platformConfig.getWWWFolder());
-  }
-  
-  return platformPath
+  return  path.join(projectRoot, platformConfig.getWWWFolder());
 }
 
 function isCordovaAbove(context, version) {
@@ -116,5 +111,6 @@ module.exports = {
   removeFolder,
   isAndroid,
   getAppName,
-  getPlatformSoundPath
+  getPlatformSoundPath,
+  getFileName
 };

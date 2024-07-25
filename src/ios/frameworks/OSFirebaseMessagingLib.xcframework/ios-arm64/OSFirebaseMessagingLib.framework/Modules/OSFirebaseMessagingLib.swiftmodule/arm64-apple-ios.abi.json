@@ -1990,6 +1990,80 @@
           },
           {
             "kind": "Var",
+            "name": "setDeliveryMetricsExportToBigQueryError",
+            "printedName": "setDeliveryMetricsExportToBigQueryError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSFirebaseMessagingLib.FirebaseMessagingErrors.Type) -> OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "FirebaseMessagingErrors",
+                    "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                    "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "FirebaseMessagingErrors",
+                        "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                        "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO39setDeliveryMetricsExportToBigQueryErroryA2CmF",
+            "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB6ErrorsO39setDeliveryMetricsExportToBigQueryErroryA2CmF",
+            "moduleName": "OSFirebaseMessagingLib"
+          },
+          {
+            "kind": "Var",
+            "name": "getDeliveryMetricsExportToBigQueryError",
+            "printedName": "getDeliveryMetricsExportToBigQueryError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSFirebaseMessagingLib.FirebaseMessagingErrors.Type) -> OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "FirebaseMessagingErrors",
+                    "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                    "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "FirebaseMessagingErrors",
+                        "printedName": "OSFirebaseMessagingLib.FirebaseMessagingErrors",
+                        "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:22OSFirebaseMessagingLib08FirebaseB6ErrorsO39getDeliveryMetricsExportToBigQueryErroryA2CmF",
+            "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB6ErrorsO39getDeliveryMetricsExportToBigQueryErroryA2CmF",
+            "moduleName": "OSFirebaseMessagingLib"
+          },
+          {
+            "kind": "Var",
             "name": "requestPermissionsError",
             "printedName": "requestPermissionsError",
             "children": [
@@ -3041,6 +3115,88 @@
                 "declKind": "Accessor",
                 "usr": "s:22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC05eventF0AA0dB13EventProtocol_pSgvM",
                 "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC05eventF0AA0dB13EventProtocol_pSgvM",
+                "moduleName": "OSFirebaseMessagingLib",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "deliveryMetricsExportToBigQueryEnabled",
+            "printedName": "deliveryMetricsExportToBigQueryEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvp",
+            "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvp",
+            "moduleName": "OSFirebaseMessagingLib",
+            "declAttributes": [
+              "Custom",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvg",
+                "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvg",
+                "moduleName": "OSFirebaseMessagingLib",
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvs",
+                "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvs",
+                "moduleName": "OSFirebaseMessagingLib",
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvM",
+                "mangledName": "$s22OSFirebaseMessagingLib08FirebaseB19ApplicationDelegateC38deliveryMetricsExportToBigQueryEnabledSbvM",
                 "moduleName": "OSFirebaseMessagingLib",
                 "implicit": true,
                 "accessorKind": "_modify"
@@ -5971,6 +6127,20 @@
   },
   "ConstValues": [
     {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Model\/OSFCMExtraData.swift",
+      "kind": "StringLiteral",
+      "offset": 964,
+      "length": 16,
+      "value": "\"OSFCMExtraData\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Model\/OSFCMNotification.swift",
+      "kind": "StringLiteral",
+      "offset": 1208,
+      "length": 19,
+      "value": "\"OSFCMNotification\""
+    },
+    {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Model\/OSFCMNotification.swift",
       "kind": "StringLiteral",
       "offset": 3335,
@@ -6071,9 +6241,142 @@
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
       "kind": "IntegerLiteral",
-      "offset": 714,
-      "length": 23,
+      "offset": 711,
+      "length": 2,
       "value": "17"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 765,
+      "length": 2,
+      "value": "18"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 822,
+      "length": 23,
+      "value": "19"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1008,
+      "length": 32,
+      "value": "\"Couldn't register your device.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1104,
+      "length": 59,
+      "value": "\"Couldn't register your device due to lack of permissions.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1218,
+      "length": 34,
+      "value": "\"Couldn't unregister your device.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1318,
+      "length": 75,
+      "value": "\"Couldn't unregister your device due to an error while deleting the token.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1446,
+      "length": 30,
+      "value": "\"Couldn't subscribe to topic.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1531,
+      "length": 34,
+      "value": "\"Couldn't unsubscribe from topic.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1620,
+      "length": 24,
+      "value": "\"Couldn't obtain token.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1698,
+      "length": 24,
+      "value": "\"Couldn't delete token.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1781,
+      "length": 28,
+      "value": "\"Couldn't set badge number.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1880,
+      "length": 52,
+      "value": "\"Couldn't request permission to send notifications.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 1990,
+      "length": 29,
+      "value": "\"Couldn't send notification.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2079,
+      "length": 31,
+      "value": "\"Couldn't delete notification.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2176,
+      "length": 38,
+      "value": "\"Couldn't fetch silent notifications.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2289,
+      "length": 76,
+      "value": "\"Couldn't set the value for exporting message delivery metrics to BigQuery.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2440,
+      "length": 81,
+      "value": "\"Couldn't retrieve the value for exporting message delivery metrics to BigQuery.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2580,
+      "length": 66,
+      "value": "\"There was an error requesting permissions to send notifications.\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "StringLiteral",
+      "offset": 2874,
+      "length": 2,
+      "value": "\"\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
@@ -6169,9 +6472,23 @@
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
       "kind": "IntegerLiteral",
-      "offset": 714,
-      "length": 23,
+      "offset": 711,
+      "length": 2,
       "value": "17"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 765,
+      "length": 2,
+      "value": "18"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 822,
+      "length": 23,
+      "value": "19"
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
@@ -6267,9 +6584,30 @@
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
       "kind": "IntegerLiteral",
-      "offset": 714,
-      "length": 23,
+      "offset": 711,
+      "length": 2,
       "value": "17"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 765,
+      "length": 2,
+      "value": "18"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseMessagingErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 822,
+      "length": 23,
+      "value": "19"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Extensions\/Date+Extension.swift",
+      "kind": "FloatLiteral",
+      "offset": 190,
+      "length": 6,
+      "value": "1000.0"
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseConfigurations.swift",
@@ -6277,6 +6615,41 @@
       "offset": 632,
       "length": 20,
       "value": "\"GoogleService-Info\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Utils\/FirebaseConfigurations.swift",
+      "kind": "StringLiteral",
+      "offset": 1008,
+      "length": 7,
+      "value": "\"plist\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Extensions\/OSLCNOActionDelegate+Accelerators.swift",
+      "kind": "StringLiteral",
+      "offset": 822,
+      "length": 26,
+      "value": "\"www\/\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Extensions\/OSLCNOActionDelegate+Accelerators.swift",
+      "kind": "StringLiteral",
+      "offset": 847,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Protocols\/FirebaseMessagingProtocol.swift",
+      "kind": "StringLiteral",
+      "offset": 1355,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3050,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
@@ -6287,143 +6660,206 @@
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "Array",
+      "offset": 6322,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8284,
+      "offset": 8417,
+      "length": 54,
+      "value": "\"FCM Token retrieved: \""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 8470,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 8874,
       "length": 20,
       "value": "\"google.c.sender.id\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8339,
+      "offset": 8929,
       "length": 16,
       "value": "\"gcm.message_id\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8388,
+      "offset": 8978,
       "length": 14,
       "value": "\"google.c.fid\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8434,
+      "offset": 9024,
       "length": 14,
       "value": "\"google.c.a.e\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8474,
+      "offset": 9064,
       "length": 5,
       "value": "\"aps\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8507,
+      "offset": 9097,
       "length": 7,
       "value": "\"alert\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8553,
+      "offset": 9143,
       "length": 19,
       "value": "\"content-available\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8605,
+      "offset": 9195,
       "length": 12,
       "value": "\"timeToLive\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8650,
+      "offset": 9240,
       "length": 12,
       "value": "\"showDialog\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8690,
+      "offset": 9280,
       "length": 7,
       "value": "\"title\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8724,
+      "offset": 9314,
       "length": 6,
       "value": "\"body\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8761,
+      "offset": 9351,
       "length": 10,
       "value": "\"deepLink\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8804,
+      "offset": 9394,
       "length": 13,
       "value": "\"fcm_options\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8858,
+      "offset": 9448,
       "length": 11,
       "value": "\"messageID\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8905,
+      "offset": 9495,
       "length": 15,
       "value": "\"extraDataList\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8946,
+      "offset": 9536,
       "length": 5,
       "value": "\"key\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 8979,
+      "offset": 9569,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 9030,
+      "offset": 9620,
       "length": 14,
       "value": "\"notification\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 9086,
+      "offset": 9676,
       "length": 12,
       "value": "\"screenName\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
       "kind": "StringLiteral",
-      "offset": 9134,
+      "offset": 9724,
       "length": 15,
       "value": "\"parameterList\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 12461,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 13090,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 14769,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 15084,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 17405,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingApplicationDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 19113,
+      "length": 43,
+      "value": "\"deliveryMetricsExportToBigQueryEnabledKey\""
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
@@ -6433,11 +6869,74 @@
       "value": "\"-general-topic-ios\""
     },
     {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 576,
+      "length": 69,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 621,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 624,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 644,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/MessagingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1386,
+      "length": 10,
+      "value": "\"%02.2hhx\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Extensions\/Encodable+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 420,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/NotificationManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4429,
+      "length": 4,
+      "value": "true"
+    },
+    {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/NotificationManager.swift",
       "kind": "StringLiteral",
       "offset": 1269,
       "length": 19,
       "value": "\"OSFirebaseMessagingLib.NotificationManager\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/NotificationManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5058,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/Managers\/NotificationManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6050,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
@@ -6449,7 +6948,35 @@
     {
       "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
       "kind": "StringLiteral",
+      "offset": 2730,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
+      "kind": "StringLiteral",
+      "offset": 2800,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
+      "kind": "StringLiteral",
       "offset": 3442,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
+      "kind": "StringLiteral",
+      "offset": 5297,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/OSFirebaseMessagingLib-iOS\/OSFirebaseMessagingLib\/FirebaseMessagingController.swift",
+      "kind": "StringLiteral",
+      "offset": 6112,
       "length": 2,
       "value": "\"\""
     },
@@ -6501,6 +7028,20 @@
       "offset": 1072,
       "length": 2,
       "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Library\/Developer\/Xcode\/DerivedData\/OSFirebaseMessagingLib-gfyjcvvzdqpkbqdizmfurtfnupzl\/Build\/Intermediates.noindex\/ArchiveIntermediates\/OSFirebaseMessagingLib\/IntermediateBuildFilesPath\/OSFirebaseMessagingLib.build\/Release-iphoneos\/OSFirebaseMessagingLib.build\/DerivedSources\/CoreDataGenerated\/NotificationsModel\/OSFCMExtraData+CoreDataProperties.swift",
+      "kind": "StringLiteral",
+      "offset": 389,
+      "length": 16,
+      "value": "\"OSFCMExtraData\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Library\/Developer\/Xcode\/DerivedData\/OSFirebaseMessagingLib-gfyjcvvzdqpkbqdizmfurtfnupzl\/Build\/Intermediates.noindex\/ArchiveIntermediates\/OSFirebaseMessagingLib\/IntermediateBuildFilesPath\/OSFirebaseMessagingLib.build\/Release-iphoneos\/OSFirebaseMessagingLib.build\/DerivedSources\/CoreDataGenerated\/NotificationsModel\/OSFCMNotification+CoreDataProperties.swift",
+      "kind": "StringLiteral",
+      "offset": 401,
+      "length": 19,
+      "value": "\"OSFCMNotification\""
     }
   ]
 }

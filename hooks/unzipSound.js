@@ -62,35 +62,24 @@ module.exports = function(context) {
   let soundFolderPath = platformConfig.getSoundDestinationFolder();
   soundFolderPath = path.join(context.opts.projectRoot, soundFolderPath);
 
-  let soundZipFile = path.join(sourcePath, constants.soundZipFile);
+  let zipFile = utils.getFileName(sourcePath, "sounds", ".zip");
+  
   let promises = [];
-  if(utils.checkIfFileOrFolderExists(soundZipFile)){
-    let zip = new AdmZip(soundZipFile);
-    zip.extractAllTo(sourcePath, true);
+  
+  if(zipFile != ""){
+    let soundZipFilePath = path.join(sourcePath, zipFile);
+    let zip = new AdmZip(soundZipFilePath);
+    let zipFolder = sourcePath + "/sounds"
+    zip.extractAllTo(zipFolder, true);
     
     let entriesNr = zip.getEntries().length;
     console.log(`FCM_LOG: Sound zip file has ${entriesNr} entries`);
     if(entriesNr == 0) {
       throw new Error (`OUTSYSTEMS_PLUGIN_ERROR: Sound zip file is empty, either delete it or add one or more files.`)
     }
-  
-    let zipFolder = sourcePath + "/sounds"
     
-    if(!utils.checkIfFileOrFolderExists(zipFolder)){
-      console.log(`FCM_LOG: No new folder unzipping.`)
-      /**
-       * to deal with the following case:
-       * iOS + one file in zip + O11
-      **/
-      if(sourcePath != soundFolderPath){
-        console.log(`FCM_LOG: ${sourcePath} != ${soundFolderPath} so we need to copy files.`)
-        promises = copyWavFiles(platformConfig, sourcePath, soundFolderPath, defer)
-      } else {
-        console.log(`FCM_LOG: ${sourcePath} == ${soundFolderPath} so we don't need to copy files.`)
-      }
-    } else { 
-      promises = copyWavFiles(platformConfig, zipFolder, soundFolderPath, defer)  
-    }
+   promises = copyWavFiles(platformConfig, zipFolder, soundFolderPath, defer)  
+   
   }
   return promises.length > 0 ? q.all(promises) : defer.resolve();
 }

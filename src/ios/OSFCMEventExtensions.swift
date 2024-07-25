@@ -11,8 +11,6 @@ extension OSFCMClickableType: CustomStringConvertible {
             }
         case .action:
             result = "internalRouteActionClick"
-        @unknown default:
-            preconditionFailure("Not supposed to get here")
         }
         
         return result

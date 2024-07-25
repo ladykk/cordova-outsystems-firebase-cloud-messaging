@@ -5,15 +5,16 @@ import OSFirebaseMessagingLib
 @objc(OSFirebaseCloudMessaging)
 class OSFirebaseCloudMessaging: CDVPlugin {
 
-    var plugin: FirebaseMessagingController?
-    var callbackId: String = ""
+    private var plugin: FirebaseMessagingController?
+    private var callbackId: String = ""
+    private weak var firebaseAppDelegate: FirebaseMessagingApplicationDelegate? = .shared
     
-    var deviceReady: Bool = false
-    var eventQueue: [String]?
+    private var deviceReady: Bool = false
+    private var eventQueue: [String]?
     
     override func pluginInitialize() {
-        plugin = FirebaseMessagingController(delegate:self)
-        FirebaseMessagingApplicationDelegate.shared.eventDelegate = self
+        self.plugin = FirebaseMessagingController(delegate: self)
+        self.firebaseAppDelegate?.eventDelegate = self
     }
     
     @objc(ready:)
@@ -159,7 +160,34 @@ class OSFirebaseCloudMessaging: CDVPlugin {
             }
         }
     }
-
+    
+    @objc(setDeliveryMetricsExportToBigQuery:)
+    func setDeliveryMetricsExportToBigQuery(command: CDVInvokedUrlCommand) {
+        self.commandDelegate.run { [weak self] in
+            guard let self else { return }
+            
+            guard 
+                let parameterDictionary = command.arguments.first as? [String: Any],
+                let newValue = parameterDictionary["enable"] as? Bool
+            else { return self.sendResult(result: "", error: FirebaseMessagingErrors.setDeliveryMetricsExportToBigQueryError as NSError, callBackID: command.callbackId) }
+            
+            self.firebaseAppDelegate?.deliveryMetricsExportToBigQueryEnabled = newValue
+            self.sendResult(result: "", error: nil, callBackID: command.callbackId)
+        }
+        
+    }
+    
+    @objc(deliveryMetricsExportToBigQueryEnabled:)
+    func deliveryMetricsExportToBigQueryEnabled(command: CDVInvokedUrlCommand) {
+        self.commandDelegate.run { [weak self] in
+            guard let self else { return }
+            
+            guard let returnValue = self.firebaseAppDelegate?.deliveryMetricsExportToBigQueryEnabled
+            else { return self.sendResult(result: "", error: FirebaseMessagingErrors.getDeliveryMetricsExportToBigQueryError as NSError, callBackID: command.callbackId) }
+            
+            self.sendResult(result: String(returnValue), error: nil, callBackID: command.callbackId)
+        }
+    }
 }
 
 // MARK: - OSCommonPluginLib's PlatformProtocol Methods
@@ -215,8 +243,6 @@ extension OSFirebaseCloudMessaging: FirebaseMessagingEventProtocol {
             eventName = type.description
         case .trigger(notification: let notification):
             eventName = notification.description
-        @unknown default:
-            preconditionFailure("Not supposed to get here")
         }
         
         self.trigger(event: eventName, data: data)
